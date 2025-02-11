@@ -1,0 +1,55 @@
+from tkinter import*
+from tkinter import messagebox
+w= Tk()
+#w.resizeable(0,0)
+w.title("TO DO LIST")
+##########################################
+h1=Label(w,text="To Do List",font=('arial',15,'bold'),borderwidth=5,relief="raise",bg="aqua")
+h1.grid(row=1,column=3,columnspan=3)
+###################################################################################
+h2=Listbox(w, height = 10, bg = "#2E2E2E",activestyle = 'dotbox', font = "arial",fg = "#FFFFFF",selectbackground='#ADD8E6', selectforeground='#000000')
+h2.grid(row=2,column=1,columnspan=7)  
+#######################################################################
+h3=Entry(w,font=('arial',15,'bold'),relief="solid",bg="khaki1")
+h3.grid(row =3,column=1,columnspan=7 )
+##########################################################
+h4=Button(w,text="Add Task",font=('arial',11,'bold'),bg="cyan",borderwidth=5,command=lambda: Addtask())
+h4.grid(row =4,column=2,columnspan=6 )
+###########################################################
+h5=Button(w,text="Upadate Task ",font=('arial',11,'bold'),bg="yellow",borderwidth=5, command=lambda: Updatetask())
+h5.grid(row =5,column=1,columnspan=4 )
+############################################################
+h6=Button(w,text="Delete Task ",font=('arial',11,'bold'),bg="Red",borderwidth=5,cursor="hand2", command=lambda:  Deletetask())
+h6.grid(row =6,column=3,columnspan=4 )
+
+
+##############################################################################################
+def Addtask():
+    task=h3.get()
+    if task != "":
+            h2.insert(END, task)
+            h3.delete(0,END)
+    else:
+        messagebox.showwarning("Warning", "You must enter a task.")
+def Updatetask():
+    try:
+        task1 = h2.curselection()[0]
+        task = h2.get(task1)
+        task3 = h3.get()
+       
+        h2.delete(task1)
+        h2.insert(task1, task3)
+        h3.delete(0, END)
+       
+    except:
+           messagebox.showwarning("Warning", "You must select a task.")
+def Deletetask():
+     try:
+        selected_task_index = h2.curselection()[0]
+        h2.delete(selected_task_index)
+     except:
+         messagebox.showwarning("Warning", "You must select a task.")
+
+
+w.mainloop()
+      
